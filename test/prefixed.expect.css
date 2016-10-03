@@ -1,0 +1,27 @@
+.border-bottom-radius {
+	-x-border-bottom-radius: 10px;
+}
+
+.border-left-radius {
+	-x-border-left-radius: 10px;
+}
+
+.border-right-radius {
+	-x-border-right-radius: 10px;
+}
+
+.border-top-radius {
+	-x-border-top-radius: 10px;
+}
+
+.border-top-radius-2-defined {
+	-x-border-top-radius: 10px 5px;
+}
+
+.border-top-radius-1-defined-1-skipped {
+	-x-border-top-radius: 10px *;
+}
+
+.border-top-radius-1-skipped-1-defined {
+	-x-border-top-radius: * 5px;
+}
