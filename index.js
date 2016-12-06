@@ -1,34 +1,47 @@
-var postcss = require('postcss');
+// tooling
+const postcss = require('postcss');
 
-module.exports = postcss.plugin('postcss-short-border-radius', function (opts) {
-	var spacer = opts && opts.spacer ? opts.spacer : '*';
-	var prefix = opts && opts.prefix ? '-' + opts.prefix + '-' : '';
+// border-radius properties by side
+const propertiesBySide = {
+	bottom: ['border-bottom-left-radius', 'border-bottom-right-radius'],
+	left:   ['border-top-left-radius',    'border-bottom-left-radius'],
+	right:  ['border-top-right-radius',   'border-bottom-right-radius'],
+	top:    ['border-top-left-radius',    'border-top-right-radius']
+};
 
-	var props = {
-		'border-bottom-radius': ['border-bottom-left-radius', 'border-bottom-right-radius'],
-		'border-left-radius':   ['border-top-left-radius',    'border-bottom-left-radius'],
-		'border-right-radius':  ['border-top-right-radius',   'border-bottom-right-radius'],
-		'border-top-radius':    ['border-top-left-radius',    'border-top-right-radius']
-	};
+// plugin
+module.exports = postcss.plugin('postcss-short-border-radius', ({
+	prefix = '',
+	skip   = '*'
+}) => {
+	// border-radius selector pattern
+	const propertyMatch = new RegExp('^' + (prefix ? '-' + prefix + '-' : '') + 'border-(bottom|left|right|top)-radius$');
 
-	return function (css) {
-		css.walkDecls(new RegExp('^' + prefix + 'border-(bottom|left|right|top)-radius$'), function (decl) {
-			var name = prefix ? decl.prop.slice(prefix.length) : decl.prop;
-			var edge = postcss.list.space(decl.value);
+	return (css) => {
+		// walk each matching declaration
+		css.walkDecls(propertyMatch, (decl) => {
+			// border-radius properties
+			const properties = propertiesBySide[decl.prop.match(propertyMatch)[1]];
 
-			var prop = props[name];
+			// spaced-separated values (top, right, bottom, left)
+			const values = postcss.list.space(decl.value);
 
-			prop.forEach(function (property, index) {
-				var value = index in edge ? edge[index] : edge[0];
+			// for each side property
+			properties.forEach((side, index) => {
+				// value of the current or first side
+				const value = index in values ? values[index] : values[0];
 
-				if (value !== spacer) {
+				// if the value is not a skip token
+				if (value !== skip) {
+					// create a new declaration for the border-radius side property
 					decl.cloneBefore({
-						prop:  property,
-						value: index in edge ? edge[index] : edge[0]
+						prop:  side,
+						value: value
 					});
 				}
 			});
 
+			// remove the original declaration
 			decl.remove();
 		});
 	};

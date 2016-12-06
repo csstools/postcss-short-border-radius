@@ -1,38 +1,57 @@
-# Shorthand Border Radius
+# Border Radius Shorthand <a href="https://github.com/postcss/postcss"><img src="https://postcss.github.io/postcss/logo.svg" alt="PostCSS Logo" width="90" height="90" align="right"></a>
 
-<a href="https://github.com/postcss/postcss"><img src="https://postcss.github.io/postcss/logo.svg" alt="PostCSS Logo" width="80" height="80" align="right"></a>
+[![NPM Version][npm-img]][npm-url]
+[![Build Status][cli-img]][cli-url]
+[![Licensing][lic-image]][lic-url]
+[![Changelog][log-image]][log-url]
+[![Gitter Chat][git-image]][git-url]
 
-[![NPM Version][npm-img]][npm] [![Build Status][ci-img]][ci]
-
-[Shorthand Border Radius] lets you use the shorthand `border-top-radius`, `border-right-radius`, `border-bottom-radius`, and `border-left-radius` properties in CSS, following the [1-to-2 syntax].
+[Border Radius Shorthand] lets you use `border-top-radius`, `border-right-radius`, `border-bottom-radius`, and `border-left-radius` properties in CSS, following the [1-to-2 syntax].
 
 
 ```css
 /* before */
 
-.border-top {
+.example-1 {
 	border-top-radius: 10px;
 }
 
-.border-top-right {
-	border-top-radius: * 5px;
+.example-2 {
+	border-top-radius: 10px 5px;
 }
 
 /* after */
 
-.border-top {
+.example-1 {
 	border-top-left-radius: 10px;
 	border-top-right-radius: 10px;
 }
 
-.border-top-right {
+.example-2 {
+	border-top-left-radius: 10px;
 	border-top-right-radius: 5px;
 }
 ```
 
+## Options
+
+#### `prefix`
+
+Type: `String`  
+Default: `""`
+
+Adds an optional prefix to the `size` property (e.g. `"x"` for `-x-size`). Wrapping dashes (`-`) are automatically applied.
+
+#### `skip`
+
+Type: `String`  
+Default: `"*"`
+
+Specifies the skip token used to ignore a length.
+
 ## Usage
 
-Add [Shorthand Border Radius] to your build tool:
+Add [Border Radius Shorthand] to your build tool:
 
 ```bash
 npm install postcss-short-border-radius --save-dev
@@ -52,7 +71,7 @@ Add [PostCSS] to your build tool:
 npm install postcss --save-dev
 ```
 
-Load [Shorthand Border Radius] as a PostCSS plugin:
+Load [Border Radius Shorthand] as a PostCSS plugin:
 
 ```js
 postcss([
@@ -68,7 +87,7 @@ Add [Gulp PostCSS] to your build tool:
 npm install gulp-postcss --save-dev
 ```
 
-Enable [Shorthand Border Radius] within your Gulpfile:
+Enable [Border Radius Shorthand] within your Gulpfile:
 
 ```js
 var postcss = require('gulp-postcss');
@@ -92,7 +111,7 @@ Add [Grunt PostCSS] to your build tool:
 npm install grunt-postcss --save-dev
 ```
 
-Enable [Shorthand Border Radius] within your Gruntfile:
+Enable [Border Radius Shorthand] within your Gruntfile:
 
 ```js
 grunt.loadNpmTasks('grunt-postcss');
@@ -111,24 +130,19 @@ grunt.initConfig({
 });
 ```
 
-## Options
-
-#### `prefix`
-
-Type: `String`  
-Default: `null`
-
-Specifies a prefix to be surrounded by dashes before the declaration (e.g. `-x-border-top-radius`).
-
-[ci]:      https://travis-ci.org/jonathantneal/postcss-short-border-radius
-[ci-img]:  https://img.shields.io/travis/jonathantneal/postcss-short-border-radius.svg
-[npm]:     https://www.npmjs.com/package/postcss-short-border-radius
+[npm-url]: https://www.npmjs.com/package/postcss-short-border-radius
 [npm-img]: https://img.shields.io/npm/v/postcss-short-border-radius.svg
+[cli-url]: https://travis-ci.org/jonathantneal/postcss-short-border-radius
+[cli-img]: https://img.shields.io/travis/jonathantneal/postcss-short-border-radius.svg
+[lic-url]: LICENSE.md
+[lic-image]: https://img.shields.io/npm/l/postcss-short-border-radius.svg
+[log-url]: CHANGELOG.md
+[log-image]: https://img.shields.io/badge/changelog-md-blue.svg
+[git-url]: https://gitter.im/postcss/postcss
+[git-image]: https://img.shields.io/badge/chat-gitter-blue.svg
 
-[Gulp PostCSS]:  https://github.com/postcss/gulp-postcss
-[Grunt PostCSS]: https://github.com/nDmitry/grunt-postcss
-[PostCSS]:       https://github.com/postcss/postcss
-
+[Border Radius Shorthand]: https://github.com/jonathantneal/postcss-short-border-radius
 [1-to-2 syntax]: https://developer.mozilla.org/en-US/docs/Web/CSS/Shorthand_properties#Tricky_edge_cases
-
-[Shorthand Border Radius]: https://github.com/jonathantneal/postcss-short-border-radius
+[PostCSS]: https://github.com/postcss/postcss
+[Grunt PostCSS]: https://github.com/nDmitry/grunt-postcss
+[Gulp PostCSS]: https://github.com/postcss/gulp-postcss
