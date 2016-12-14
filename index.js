@@ -12,10 +12,13 @@ const propertiesBySide = {
 // plugin
 module.exports = postcss.plugin('postcss-short-border-radius', ({
 	prefix = '',
-	skip   = '*'
-}) => {
+	skip = '*'
+} = {}) => {
+	// dashed prefix
+	const dashedPrefix = prefix ? `-${ prefix }-` : '';
+
 	// border-radius selector pattern
-	const propertyMatch = new RegExp('^' + (prefix ? '-' + prefix + '-' : '') + 'border-(bottom|left|right|top)-radius$');
+	const propertyMatch = new RegExp(`^${ dashedPrefix }border-(bottom|left|right|top)-radius$`);
 
 	return (css) => {
 		// walk each matching declaration
@@ -46,3 +49,10 @@ module.exports = postcss.plugin('postcss-short-border-radius', ({
 		});
 	};
 });
+
+// override plugin#process
+module.exports.process = function (cssString, pluginOptions, processOptions) {
+	return postcss([
+		0 in arguments ? module.exports(pluginOptions) : module.exports()
+	]).process(cssString, processOptions);
+};
