@@ -1,10 +1,9 @@
-# Border Radius Shorthand <a href="https://github.com/postcss/postcss"><img src="https://postcss.github.io/postcss/logo.svg" alt="PostCSS Logo" width="90" height="90" align="right"></a>
+# Border Radius Shorthand [<img src="https://postcss.github.io/postcss/logo.svg" alt="PostCSS Logo" width="90" height="90" align="right">][postcss]
 
 [![NPM Version][npm-img]][npm-url]
 [![Build Status][cli-img]][cli-url]
-[![Licensing][lic-image]][lic-url]
-[![Changelog][log-image]][log-url]
-[![Gitter Chat][git-image]][git-url]
+[![Windows Build Status][win-img]][win-url]
+[![Gitter Chat][git-img]][git-url]
 
 [Border Radius Shorthand] lets you use `border-top-radius`, `border-right-radius`, `border-bottom-radius`, and `border-left-radius` properties in CSS, following the [1-to-2 syntax].
 
@@ -13,23 +12,23 @@
 /* before */
 
 .example-1 {
-	border-top-radius: 10px;
+  border-top-radius: 10px;
 }
 
 .example-2 {
-	border-top-radius: 10px 5px;
+  border-top-radius: 10px 5px;
 }
 
 /* after */
 
 .example-1 {
-	border-top-left-radius: 10px;
-	border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
 }
 
 .example-2 {
-	border-top-left-radius: 10px;
-	border-top-right-radius: 5px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 5px;
 }
 ```
 
@@ -75,7 +74,7 @@ Load [Border Radius Shorthand] as a PostCSS plugin:
 
 ```js
 postcss([
-	require('postcss-short-border-radius')({ /* options */ })
+  require('postcss-short-border-radius')({ /* options */ })
 ]).process(YOUR_CSS, /* options */);
 ```
 
@@ -93,13 +92,13 @@ Enable [Border Radius Shorthand] within your Gulpfile:
 var postcss = require('gulp-postcss');
 
 gulp.task('css', function () {
-	return gulp.src('./src/*.css').pipe(
-		postcss([
-			require('postcss-short-border-radius')({ /* options */ })
-		])
-	).pipe(
-		gulp.dest('.')
-	);
+  return gulp.src('./src/*.css').pipe(
+    postcss([
+      require('postcss-short-border-radius')({ /* options */ })
+    ])
+  ).pipe(
+    gulp.dest('.')
+  );
 });
 ```
 
@@ -117,16 +116,16 @@ Enable [Border Radius Shorthand] within your Gruntfile:
 grunt.loadNpmTasks('grunt-postcss');
 
 grunt.initConfig({
-	postcss: {
-		options: {
-			use: [
-				require('postcss-short-border-radius')({ /* options */ })
-			]
-		},
-		dist: {
-			src: '*.css'
-		}
-	}
+  postcss: {
+    options: {
+      use: [
+        require('postcss-short-border-radius')({ /* options */ })
+      ]
+    },
+    dist: {
+      src: '*.css'
+    }
+  }
 });
 ```
 
@@ -134,12 +133,10 @@ grunt.initConfig({
 [npm-img]: https://img.shields.io/npm/v/postcss-short-border-radius.svg
 [cli-url]: https://travis-ci.org/jonathantneal/postcss-short-border-radius
 [cli-img]: https://img.shields.io/travis/jonathantneal/postcss-short-border-radius.svg
-[lic-url]: LICENSE.md
-[lic-image]: https://img.shields.io/npm/l/postcss-short-border-radius.svg
-[log-url]: CHANGELOG.md
-[log-image]: https://img.shields.io/badge/changelog-md-blue.svg
+[win-url]: https://ci.appveyor.com/project/jonathantneal/postcss-short-border-radius
+[win-img]: https://img.shields.io/appveyor/ci/jonathantneal/postcss-short-border-radius.svg
 [git-url]: https://gitter.im/postcss/postcss
-[git-image]: https://img.shields.io/badge/chat-gitter-blue.svg
+[  git-img]: https://img.shields.io/badge/chat-gitter-blue.svg
 
 [Border Radius Shorthand]: https://github.com/jonathantneal/postcss-short-border-radius
 [1-to-2 syntax]: https://developer.mozilla.org/en-US/docs/Web/CSS/Shorthand_properties#Tricky_edge_cases
