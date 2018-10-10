@@ -1,4 +1,8 @@
-# Changes to Border Radius Shorthand
+# Changes to PostCSS Short Border Radius
+
+### 3.0.0 (October 10, 2018)
+
+- Added: Support for PostCSS 7, Node 6
 
 ### 2.0.0 (May 25, 2017)
 
