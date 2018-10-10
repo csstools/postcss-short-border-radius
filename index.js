@@ -1,31 +1,17 @@
-// tooling
-const postcss = require('postcss');
+import postcss from 'postcss';
 
-// border-radius properties by side
-const propertiesBySide = {
-	bottom: ['border-bottom-left-radius', 'border-bottom-right-radius'],
-	left:   ['border-top-left-radius',    'border-bottom-left-radius'],
-	right:  ['border-top-right-radius',   'border-bottom-right-radius'],
-	top:    ['border-top-left-radius',    'border-top-right-radius']
-};
-
-// plugin
-module.exports = postcss.plugin('postcss-short-border-radius', (opts) => {
-	// options
-	const prefix = opts && 'prefix' in opts ? opts.prefix : '';
-	const skip = opts && 'skip' in opts ? opts.skip : '*';
-
-	// dashed prefix
-	const dashedPrefix = prefix ? `-${ prefix }-` : '';
+export default postcss.plugin('postcss-short-border-radius', opts => {
+	const prefix = 'prefix' in Object(opts) ? `-${opts.prefix}-` : '';
+	const skip = 'skip' in Object(opts) ? String(opts.skip) : '*';
 
 	// border-radius selector pattern
-	const propertyMatch = new RegExp(`^${ dashedPrefix }border-(bottom|left|right|top)-radius$`);
+	const borderRadiusPropertyRegExp = new RegExp(`^${prefix}border-(bottom|left|right|top)-radius$`);
 
-	return (css) => {
+	return root => {
 		// walk each matching declaration
-		css.walkDecls(propertyMatch, (decl) => {
+		root.walkDecls(borderRadiusPropertyRegExp, decl => {
 			// border-radius properties
-			const properties = propertiesBySide[decl.prop.match(propertyMatch)[1]];
+			const properties = propertiesBySide[decl.prop.match(borderRadiusPropertyRegExp)[1]];
 
 			// spaced-separated values (top, right, bottom, left)
 			const values = postcss.list.space(decl.value);
@@ -39,7 +25,7 @@ module.exports = postcss.plugin('postcss-short-border-radius', (opts) => {
 				if (value !== skip) {
 					// create a new declaration for the border-radius side property
 					decl.cloneBefore({
-						prop:  side,
+						prop: side,
 						value: value
 					});
 				}
@@ -50,3 +36,11 @@ module.exports = postcss.plugin('postcss-short-border-radius', (opts) => {
 		});
 	};
 });
+
+// border-radius properties by side
+const propertiesBySide = {
+	bottom: ['border-bottom-left-radius', 'border-bottom-right-radius'],
+	left:   ['border-top-left-radius',    'border-bottom-left-radius'],
+	right:  ['border-top-right-radius',   'border-bottom-right-radius'],
+	top:    ['border-top-left-radius',    'border-top-right-radius']
+};
